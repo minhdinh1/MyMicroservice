@@ -17,7 +17,8 @@ namespace MyMicroservice.Services
         public async Task<CoinMarketCapResponse> GetCoinMarketCapRatesAsync(string id)
         {
             var apiKey = configuration.GetValue<string>("ApiKeys:CoinMarketCap");
-            var apiUrl = $"https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?id={id}";
+            var coinMarketCapUrl = configuration.GetValue<string>("CoinMarketBaseUrl");
+            var apiUrl = $"{coinMarketCapUrl}/v2/cryptocurrency/quotes/latest?id={id}";
             _httpClient.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", apiKey);
             var response = await _httpClient.GetAsync(apiUrl);
             if (response.IsSuccessStatusCode)
@@ -37,7 +38,8 @@ namespace MyMicroservice.Services
         public async Task<ForexApiResponse> GetForexRatesAsync(string symbol)
         {
             var apiKey = configuration.GetValue<string>("ApiKeys:CurrencyLayer");
-            var apiUrl = $"http://api.currencylayer.com/live?access_key={apiKey}&currencies=usd&source={symbol}";
+            var currencyLayerUrl = configuration.GetValue<string>("CurrencyLayerBaseUrl");
+            var apiUrl = $"{currencyLayerUrl}/live?access_key={apiKey}&currencies=usd&source={symbol}";
             var response = await _httpClient.GetAsync(apiUrl);
             if (response.IsSuccessStatusCode)
             {
