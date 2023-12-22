@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MyMicroservice.Models;
 
 namespace MyMicroservice.DbContextSpace
 {
@@ -6,6 +7,7 @@ namespace MyMicroservice.DbContextSpace
     {
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Rate> Rates { get; set; }
 
         private readonly IConfiguration configuration;
 
